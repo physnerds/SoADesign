@@ -8,9 +8,10 @@ find_package(MPI REQUIRED)
 find_package(ROOT REQUIRED COMPONENTS)
 find_package(nlohmann_json)
 find_package(HDF5 REQUIRED)
+find_package(Boost REQUIRED)
 
 message(STATUS "C++ compiler is :${CMAKE_CXX_COMPILER}")
-
+message(STATUS "BOOST FOUND IS ${Boost_FOUND}")
 set(INCLUDE_DIR /opt/homebrew/include)
 set(ONEAPI_DIR /opt/homebrew/include/oneapi)
 set(TBB_LIB /opt/homebrew/lib/libtbb.so)
@@ -19,16 +20,18 @@ include_directories (SYSTEM
          ${EXTRA_INCLUDES}
          ${MPI_INCLUDE_DIRS}
          ${MPI_CXX_INCLUDE_DIRS}
-             ${INCLUDE_DIR}
-             ${ONEAPI_DIR}
+         ${Boost_INCLUDR_DIRS}
+         ${INCLUDE_DIR}
+         ${ONEAPI_DIR}
          ${ROOT_INCLUDE_DIRS}
-             ${EXTRA_INCLUDE_DIR}
+         ${EXTRA_INCLUDE_DIR}
                 
          )
 
 set (libraries ${libraries}
              ${ROOT_LIBRARIES}
          ${MPI_CXX_LIBRARIES}
+         ${Boost_LIBRARIES}
          ${HDF5_LIB}
            ${TBB_LIB}
          ROOT::Core
