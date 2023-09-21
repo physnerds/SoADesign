@@ -1,16 +1,9 @@
 #include <iostream>
 #include <utility>
 #include "boost/preprocessor.hpp"
+#include "memory.h"
 
-#ifdef __CUDACC__
-#define SOA_HOST_ONLY __host__
-#define SOA_DEVICE_ONLY __device__
-#define SOA_HOST_DEVICE_INLINE __host__ __device__ __forceinline__
-#else
-#define SOA_HOST_ONLY
-#define SOA_DEVICE_ONLY
-#define SOA_HOST_DEVICE_INLINE inline
-#endif
+
 
 // Exception throwing (or willful crash in kernels)
 #if defined(__CUDACC__) && defined(__CUDA_ARCH__)
@@ -97,6 +90,7 @@ struct soaconstParametersImpl{
 
 template<soacolumntype column_type, typename T, size_t ALIGNMENT, RestrictQualify RESTRICT_QUALIFY = RestrictQualify::Disabled>
 class soavalue{
+
 public:
   typedef add_restrict<T,RESTRICT_QUALIFY>Restr;
   typedef typename Restr::Value val;

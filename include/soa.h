@@ -12,6 +12,8 @@
  3. What should be the layout of the object?
  */
 
+//Rudimentary macros to create class...
+//note that I should not make it over-complicated....
 
 namespace soa {
 template<typename T,size_t Size>
@@ -36,5 +38,7 @@ type name[size];
 #define Generate_Arrays(structName, ...) \
 struct structName{ \
  __VA_ARGS__ \
+\
 };
+
 }
