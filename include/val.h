@@ -2,7 +2,8 @@ namespace soa{
   template<typename T, int bytealignment=128, int offset = bytealignment-sizeof(T)%bytealignment>
     class myval{
         public:
-            myval():_val(0){}
+            //Default constructor initialized val with NULL
+            myval():_val(NULL){}
             myval(const T& init_val):_val(init_val){
             }
             ~myval(){}
