@@ -1,0 +1,3 @@
+/Users/amitbashyal/Argonne_Stuff/SoADesign/build/CMakeFiles/test_soa.dir
+/Users/amitbashyal/Argonne_Stuff/SoADesign/build/CMakeFiles/edit_cache.dir
+/Users/amitbashyal/Argonne_Stuff/SoADesign/build/CMakeFiles/rebuild_cache.dir
