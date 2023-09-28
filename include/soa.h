@@ -35,6 +35,9 @@ struct SoA{
 #define AddArray(type, name, size) \
 type name[size];
 
+#define Addvector(type,name) \
+std::vector<type>name;
+
 #define Generate_Arrays(structName, ...) \
 struct structName{ \
  __VA_ARGS__ \

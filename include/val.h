@@ -11,9 +11,13 @@ namespace soa{
               _val = v;
               return *this;
         }
-        SOA_HOST_DEVICE_INLINE myval<T> operator*() const{
-            return *_val;
+       // SOA_HOST_DEVICE_INLINE myval<T> operator*() const{
+       //     return *_val;
+       // }
+        SOA_HOST_DEVICE_INLINE T val() const{
+            return _val;
         }
+
         //Define a custom stream operator Needed for cout, printf etc..
         friend std::ostream& operator<<(std::ostream&os, const myval<T,bytealignment,offset>& obj){
             os<<obj._val;
