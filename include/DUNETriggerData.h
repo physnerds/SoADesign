@@ -1,12 +1,14 @@
+#ifndef DUNETRIGGERDATA_H
+#define DUNETRIGGERDATA_H 1
 #include "soa.h"
 #include<vector>
 namespace soa
 {
- class DUNETrigger{
+ class DUNETriggerData{
     public:
-    DUNETrigger();
+    DUNETriggerData(){};
 
-    ~DUNETrigger();
+    ~DUNETriggerData(){};
     void GenerateData(int seed);
 
     static const int arr_size = 10000;//3866696;
@@ -49,3 +51,4 @@ namespace soa
 
  };   
 } // namespace soa
+#endif

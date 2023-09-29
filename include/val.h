@@ -1,3 +1,4 @@
+#include "memory.h"
 namespace soa{
   template<typename T, int bytealignment=128, int offset = bytealignment-sizeof(T)%bytealignment>
     class myval{
