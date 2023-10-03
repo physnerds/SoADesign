@@ -17,6 +17,9 @@
 
 namespace soa {
 
+#define AddScalar(type, name) \
+type name;
+
 #define AddArray(type, name, size) \
 type name[size];
 

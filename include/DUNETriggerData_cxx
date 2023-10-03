@@ -1,0 +1,13 @@
+#ifndef DUNETRIGGERDATA_CXX
+#define DUNETRIGGERDATA_CXX 1
+
+#include "DUNETriggerData.h"
+namespace soa
+{
+/// @brief Default constructors and destructors...
+DUNETriggerData::DUNETriggerData(){}
+
+DUNETriggerData::~DUNETriggerData(){}  
+} // namespace soa
+
+#endif

@@ -45,6 +45,7 @@ void CompareStuff(){
   TTree *fTree = _rfile->Get<TTree>("myTree");
   
   auto _cf = _rfile->GetCompressionFactor();
+  auto _clevel = _rfile->GetCompressionLevel();
   Soa = new DUNETriggerData::soa_trigvec;
   fTree->SetBranchAddress("Soa",&Soa);
   const int entries_tree = fTree->GetEntries();
@@ -68,9 +69,9 @@ void ReadRNTuple(){
   
    auto soa = model->MakeField<DUNETriggerData::soa_trigvec>("Trig0");
   
-  auto ntuple = RNTupleReader::Open(std::move(model), "NTuple", filename);
+ auto ntuple = RNTupleReader::Open(std::move(model), "NTuple", filename);
  ntuple->PrintInfo(ENTupleInfo::kStorageDetails);
-  ntuple->PrintInfo();
+ ntuple->PrintInfo();
   
  // ntuple->Show(0);
   

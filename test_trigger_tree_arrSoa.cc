@@ -36,11 +36,12 @@ int readTree(){
   TTree *fTree = _rfile->Get<TTree>("myTree");
   
   auto _cf = _rfile->GetCompressionFactor();
+  auto _clevel = _rfile->GetCompressionLevel();
   Soa = new DUNETriggerData::soa_trigger;
   fTree->SetBranchAddress("Soa",&Soa);
   const int entries = fTree->GetEntries();
   std::cout<<"Total Entries "<<entries<<std::endl;
-  std::cout<<"Compression Factor "<<_cf<<std::endl;
+  std::cout<<"Compression Factor "<<_cf<<" "<<_clevel<<std::endl;
   fTree->GetEntry(0);
   fTree->Print();
   /*

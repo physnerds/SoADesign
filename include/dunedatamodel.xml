@@ -1,5 +1,7 @@
 <lcgdict>
  <class name="soa::DUNETriggerData" />
- <class name="soa::DUNETriggerData::soa_trigvec" /> 
-<class name="soa::DUNETriggerData::soa_trigger" />
+ <class name="soa::DUNETriggerData::soa_trigger" /> 
+<class name="soa::DUNETriggerData::soa_trigvec" >
+<field name="std::vector<uint32_t>wib0" persistent="true"/>
+</class>
 </lcgdict>
