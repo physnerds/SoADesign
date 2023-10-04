@@ -70,3 +70,7 @@ add_executable(test_trigger_tree_arrSoa
               test_trigger_tree_arrSoa.cc)
 target_link_libraries(test_trigger_tree_arrSoa PRIVATE ${libraries} dunedatamodel_dict)
 
+add_executable(test_trigger_rntuple_arrSoa
+#               include/DUNETriggerData.cxx 
+              test_trigger_rntuple_arrSoa.cc)
+target_link_libraries(test_trigger_rntuple_arrSoa PRIVATE ${libraries} dunedatamodel_dict)
