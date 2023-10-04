@@ -2,7 +2,7 @@
 
 ## Introduction
 This is a simple test suite designed to work in a local machine that supports ROOT with RNTuple. This was tested in M2 chip Macbook.
-
+Detailed version of this test suite that includes HDF5 related tests and GPU offloading is here [https://github.com/physnerds/rntuple_test.git] But is only tested in Perlmutter.
 ## Building Code
 
 1. Download the Code from github.
