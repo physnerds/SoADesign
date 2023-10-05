@@ -1,4 +1,5 @@
 # SoADesign
+Doxygen pages are found here: "https://physnerds.github.io/SoADesign/"
 
 ## Introduction
 This is a simple test suite designed to work in a local machine that supports ROOT with RNTuple. This was tested in M2 chip Macbook.
