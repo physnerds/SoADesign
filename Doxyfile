@@ -918,7 +918,7 @@ WARN_LOGFILE           =
 # Note: If this tag is empty the current directory is searched.
 
 INPUT                  = test_trigger_rntuple.cc test_trigger_rntuple_arrSoa.cc \
-                         test_trigger_tree.cc test_trigger_tree_arrS0a.cc  \
+                         test_trigger_tree.cc test_trigger_tree_arrSoa.cc  \
                          /Users/amitbashyal/Argonne_Stuff/SoADesign/include
 
 # This tag can be used to specify the character encoding of the source files
