@@ -1,0 +1,145 @@
+\hypertarget{common_8h_source}{}\doxysection{common.\+h}
+\label{common_8h_source}\index{include/common.h@{include/common.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ <utility>}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}boost/preprocessor.hpp"{}}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}memory.h"{}}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Exception\ throwing\ (or\ willful\ crash\ in\ kernels)}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#if\ defined(\_\_CUDACC\_\_)\ \&\&\ defined(\_\_CUDA\_ARCH\_\_)}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#define\ SOA\_THROW\_OUT\_OF\_RANGE(A)\ \(\backslash\)}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\ \ \ \ printf(A\ "{}\(\backslash\)n"{}});\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{00013\ \ \ \ \ *((char*)nullptr)\ =\ 0;\ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{00014\ \ \ \}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#define\ SOA\_THROW\_OUT\_OF\_RANGE(A)\ \(\backslash\)}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\ \ \{\ throw\ std::out\_of\_range(A);\ \}}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#define\ \_\_VALUE\_TYPE\_SCALAR\ 0}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#define\ \_\_VALUE\_TYPE\_COLUMN\ 1}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{keyword}{namespace\ \ }soa\{}
+\DoxyCodeLine{00024\ \textcolor{keyword}{enum\ class}\ soacolumntype\{}
+\DoxyCodeLine{00025\ \ \ scalar\ =\ \_\_VALUE\_TYPE\_SCALAR,}
+\DoxyCodeLine{00026\ \ \ column\ =\ \_\_VALUE\_TYPE\_COLUMN}
+\DoxyCodeLine{00027\ \};}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{comment}{//optimize\ using\ \_\_restrict\_\_\ to\ the\ pointers\ and\ reference...}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//This\ basically\ tells\ compiler\ that\ multiple\ pointers\ do\ not\ point\ to\ same\ memory\ location...}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{keyword}{enum\ class}\ RestrictQualify\ :\ \textcolor{keywordtype}{bool}\ \{\ Enabled,\ Disabled,\ Default\ =\ Disabled\ \};}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{keyword}{enum\ class}\ RangeChecking\ :\ \textcolor{keywordtype}{bool}\ \{\ Enabled,\ Disabled,\ Default\ =\ Disabled\ \};}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ RestrictQualify\ RESTRICT\_QUALIFY>}
+\DoxyCodeLine{00037\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structsoa_1_1add__restrict}{add\_restrict}}\ \{\};}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00040\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structsoa_1_1add__restrict}{add\_restrict}}<T,\ RestrictQualify::Enabled>\ \{}
+\DoxyCodeLine{00041\ \ \ \textcolor{keyword}{typedef}\ T\ Value;}
+\DoxyCodeLine{00042\ \ \ \textcolor{keyword}{typedef}\ T*\ \_\_restrict\_\_\ Pointer;}
+\DoxyCodeLine{00043\ \ \ \textcolor{keyword}{typedef}\ T\&\ \_\_restrict\_\_\ Reference;}
+\DoxyCodeLine{00044\ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{const}\ T\ ConstValue;}
+\DoxyCodeLine{00045\ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{const}\ T*\ \_\_restrict\_\_\ PointerToConst;}
+\DoxyCodeLine{00046\ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{const}\ T\&\ \_\_restrict\_\_\ ReferenceToConst;}
+\DoxyCodeLine{00047\ \};}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00050\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structsoa_1_1add__restrict}{add\_restrict}}<T,\ RestrictQualify::Disabled>\ \{}
+\DoxyCodeLine{00051\ \ \ \textcolor{keyword}{typedef}\ T\ Value;}
+\DoxyCodeLine{00052\ \ \ \textcolor{keyword}{typedef}\ T*\ Pointer;}
+\DoxyCodeLine{00053\ \ \ \textcolor{keyword}{typedef}\ T\&\ Reference;}
+\DoxyCodeLine{00054\ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{const}\ T\ ConstValue;}
+\DoxyCodeLine{00055\ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{const}\ T*\ PointerToConst;}
+\DoxyCodeLine{00056\ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{const}\ T\&\ ReferenceToConst;}
+\DoxyCodeLine{00057\ \};}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{keyword}{template}<soacolumntype\ column\_type,\ \textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00060\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structsoa_1_1soa_parameters_impl}{soaParametersImpl}};}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{keyword}{template}<soacolumntype\ column\_type,\ \textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00063\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structsoa_1_1soaconst_parameters_impl}{soaconstParametersImpl}}\{}
+\DoxyCodeLine{00064\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ soacolumntype\ columntype\ =\ column\_type;}
+\DoxyCodeLine{00065\ \ \ \textcolor{keyword}{typedef}\ T\ valuetype;}
+\DoxyCodeLine{00066\ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{const}\ valuetype*\ tupleOrpointertype;}
+\DoxyCodeLine{00067\ \ \ \textcolor{keyword}{const}\ valuetype*\ addr\_\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ SOA\_HOST\_DEVICE\_INLINE\ \mbox{\hyperlink{structsoa_1_1soaconst_parameters_impl}{soaconstParametersImpl}}(\textcolor{keyword}{const}\ valuetype*\ addr):addr\_(addr)\{\}}
+\DoxyCodeLine{00070\ \ \ SOA\_HOST\_DEVICE\_INLINE\ \mbox{\hyperlink{structsoa_1_1soaconst_parameters_impl}{soaconstParametersImpl}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structsoa_1_1soaconst_parameters_impl}{soaconstParametersImpl}}\&\ o)\{addr\_=o.addr\_;\}}
+\DoxyCodeLine{00071\ \ \ SOA\_HOST\_DEVICE\_INLINE\ \mbox{\hyperlink{structsoa_1_1soaconst_parameters_impl}{soaconstParametersImpl}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structsoa_1_1soa_parameters_impl}{soaParametersImpl<columntype,\ valuetype>}}\&o)\{addr\_\ =\ o.addr;\}}
+\DoxyCodeLine{00072\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ checkalignment(valuetype*\ addr,\ \textcolor{keywordtype}{size\_t}\ byteAlignment)\{}
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{reinterpret\_cast<}intptr\_t\textcolor{keyword}{>}(addr)\%byteAlignment;}
+\DoxyCodeLine{00074\ \ \ \}}
+\DoxyCodeLine{00075\ \};}
+\DoxyCodeLine{00076\ \ \ \textcolor{keyword}{template}<soacolumntype\ column\_type,\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00077\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structsoa_1_1soa_parameters_impl}{soaParametersImpl}}\{}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ soacolumntype\ columntype\ =\ column\_type;}
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keyword}{typedef}\ T\ valuetype;}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{const}\ valuetype*\ tupleOrpointertype;}
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{structsoa_1_1soaconst_parameters_impl}{soaconstParametersImpl<columntype,\ valuetype>}}\mbox{\hyperlink{structsoa_1_1soaconst_parameters_impl}{constType}};}
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keyword}{friend}\ \mbox{\hyperlink{structsoa_1_1soaconst_parameters_impl}{constType}};}
+\DoxyCodeLine{00083\ \ \ \ \ valuetype*\ addr\_\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00084\ \ \ \ \ SOA\_HOST\_DEVICE\_INLINE\ \mbox{\hyperlink{structsoa_1_1soa_parameters_impl}{soaParametersImpl}}(valuetype*\ addr):\ addr\_(addr)\{\}}
+\DoxyCodeLine{00085\ \ \ \ \ SOA\_HOST\_DEVICE\_INLINE\ \mbox{\hyperlink{structsoa_1_1soa_parameters_impl}{soaParametersImpl}}()\{\}}
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ checkalignment(valuetype*\ addr,\ \textcolor{keywordtype}{size\_t}\ byteAlignment)\{}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{reinterpret\_cast<}intptr\_t\textcolor{keyword}{>}(addr)\%byteAlignment;}
+\DoxyCodeLine{00088\ \ \ \ \ \}}
+\DoxyCodeLine{00089\ \ \ \};}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \textcolor{keyword}{template}<soacolumntype\ column\_type,\ \textcolor{keyword}{typename}\ T,\ \textcolor{keywordtype}{size\_t}\ ALIGNMENT,\ RestrictQualify\ RESTRICT\_QUALIFY\ =\ RestrictQualify::Disabled>}
+\DoxyCodeLine{00092\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classsoa_1_1soavalue}{soavalue}}\{}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00095\ \ \ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{structsoa_1_1add__restrict}{add\_restrict<T,RESTRICT\_QUALIFY>}}\mbox{\hyperlink{structsoa_1_1add__restrict}{Restr}};}
+\DoxyCodeLine{00096\ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{typename}\ Restr::Value\ val;}
+\DoxyCodeLine{00097\ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{typename}\ Restr::Pointer\ ptr;}
+\DoxyCodeLine{00098\ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{typename}\ Restr::Reference\ ref;}
+\DoxyCodeLine{00099\ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{typename}\ Restr::PointerToConst\ ptrToconst;}
+\DoxyCodeLine{00100\ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{typename}\ Restr::ReferenceToConst\ refToconst;}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \ \ SOA\_HOST\_DEVICE\_INLINE\ \mbox{\hyperlink{classsoa_1_1soavalue}{soavalue}}(\textcolor{keywordtype}{size\_t}\ i,\ T*\ col):idx\_(i),\ col\_(col)\{\}}
+\DoxyCodeLine{00103\ \ \ SOA\_HOST\_DEVICE\_INLINE\ \mbox{\hyperlink{classsoa_1_1soavalue}{soavalue}}(\textcolor{keywordtype}{size\_t}\ i,\ \mbox{\hyperlink{structsoa_1_1soa_parameters_impl}{soaParametersImpl<column\_type,T>}}params):idx\_(i),col\_(params.addr\_)\{\}}
+\DoxyCodeLine{00104\ \ \ SOA\_HOST\_DEVICE\_INLINE\ ref\ operator()()\{}
+\DoxyCodeLine{00105\ \ \ \ \ ptr\ col\ =\ alignedCol();}
+\DoxyCodeLine{00106\ \ \ \ \ \textcolor{keywordflow}{return}\ col[idx\_];}
+\DoxyCodeLine{00107\ \ \ \}}
+\DoxyCodeLine{00108\ \ \ SOA\_HOST\_DEVICE\_INLINE\ refToconst\ operator()()\textcolor{keyword}{const}\{}
+\DoxyCodeLine{00109\ \ \ \ \ ptrToconst\ col\ =\ alignedCol();}
+\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keywordflow}{return}\ col[idx\_];}
+\DoxyCodeLine{00111\ \ \ \}}
+\DoxyCodeLine{00112\ \ \ SOA\_HOST\_DEVICE\_INLINE\ ptr\ operator\&()\{}
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keywordflow}{return}\ \&alignedCol()[idx\_];\ }
+\DoxyCodeLine{00114\ \ \ \}}
+\DoxyCodeLine{00115\ \ \ SOA\_HOST\_DEVICE\_INLINE\ ptrToconst\ operator\&()\textcolor{keyword}{const}\{}
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keywordflow}{return}\ \&alignedCol()[idx\_];}
+\DoxyCodeLine{00117\ \ \ \}}
+\DoxyCodeLine{00118\ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T2>}
+\DoxyCodeLine{00119\ \ \ SOA\_HOST\_DEVICE\_INLINE\ ref\ operator=(\textcolor{keyword}{const}\ T2\&v)\{}
+\DoxyCodeLine{00120\ \ \ \ \ \textcolor{keywordflow}{return}\ alignedCol()[idx\_]=v;}
+\DoxyCodeLine{00121\ \ \ \}}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \ \ \textcolor{keyword}{typedef}\ val\ valuetype;}
+\DoxyCodeLine{00124\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ valuesize\ =\ \textcolor{keyword}{sizeof}(T);}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00127\ \ \ \ \ SOA\_HOST\_DEVICE\_INLINE\ ptr\ alignedCol()\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (ALIGNMENT)}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{reinterpret\_cast<}ptr\textcolor{keyword}{>}(\_\_builtin\_assume\_aligned)(col\_,ALIGNMENT);}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{reinterpret\_cast<}ptr\textcolor{keyword}{>}(col\_);}
+\DoxyCodeLine{00131\ \ \ \ \ \}}
+\DoxyCodeLine{00132\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ idx\_;}
+\DoxyCodeLine{00133\ \ \ \ \ T*\ col\_;}
+\DoxyCodeLine{00134\ \};\ \textcolor{comment}{//end\ class\ soavalue}}
+\DoxyCodeLine{00135\ \ }
+\DoxyCodeLine{00136\ \}\ \textcolor{comment}{//end\ namespace\ soa}}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ }
+
+\end{DoxyCode}

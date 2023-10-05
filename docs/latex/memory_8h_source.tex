@@ -1,0 +1,15 @@
+\hypertarget{memory_8h_source}{}\doxysection{memory.\+h}
+\label{memory_8h_source}\index{include/memory.h@{include/memory.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifdef\ \_\_CUDACC\_\_}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ SOA\_HOST\_ONLY\ \_\_host\_\_}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ SOA\_DEVICE\_ONLY\ \_\_device\_\_}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#define\ SOA\_HOST\_DEVICE\_INLINE\ \_\_host\_\_\ \_\_device\_\_\ \_\_forceinline\_\_}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ SOA\_HOST\_ONLY}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#define\ SOA\_DEVICE\_ONLY}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#define\ SOA\_HOST\_DEVICE\_INLINE\ inline}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}
