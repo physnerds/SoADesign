@@ -11,7 +11,7 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v4
+      uses: actions/checkout@v3
 
     - name: Setup Doxygen
       run: |
@@ -23,7 +23,7 @@ jobs:
         doxygen Doxyfile  # Modify this line to match your Doxyfile location
 
     - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v4
+      uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./html  # Modify this line to match your Doxygen output directory
