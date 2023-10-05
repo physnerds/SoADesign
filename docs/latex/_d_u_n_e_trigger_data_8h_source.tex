@@ -1,0 +1,65 @@
+\hypertarget{_d_u_n_e_trigger_data_8h_source}{}\doxysection{DUNETrigger\+Data.\+h}
+\label{_d_u_n_e_trigger_data_8h_source}\index{include/DUNETriggerData.h@{include/DUNETriggerData.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ DUNETRIGGERDATA\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ DUNETRIGGERDATA\_H\ 1}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}soa.h"{}}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include<vector>}}
+\DoxyCodeLine{00005\ \textcolor{keyword}{namespace\ }soa}
+\DoxyCodeLine{00006\ \{}
+\DoxyCodeLine{00007\ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classsoa_1_1_d_u_n_e_trigger_data}{DUNETriggerData}}\{}
+\DoxyCodeLine{00008\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00009\ \ \ \ \ \mbox{\hyperlink{classsoa_1_1_d_u_n_e_trigger_data}{DUNETriggerData}}()\{\};}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \ \ \ \ \mbox{\hyperlink{classsoa_1_1_d_u_n_e_trigger_data}{\string~DUNETriggerData}}()\{\};}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keywordtype}{void}\ GenerateData(\textcolor{keywordtype}{int}\ seed);}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ arr\_size\ =\ 5;}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ trig\_cand\_length\ =\ 128;}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ trig\_head\_length\ =\ 440;}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ hw\_sig\_length\ =\ 96;}
+\DoxyCodeLine{00018\ \ \ \ \ }
+\DoxyCodeLine{00019\ \ \ \ \ Generate\_Arrays(soa\_trigger,}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ AddArray(uint32\_t,\ wib0,arr\_size);}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ AddArray(uint32\_t,\ wib1,arr\_size);}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ AddArray(uint32\_t,\ wib2,arr\_size);}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ AddArray(uint32\_t,wib3,arr\_size);}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ AddArray(uint32\_t,\ wib4,arr\_size);}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ AddArray(uint32\_t,\ wib5,arr\_size);}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ AddArray(uint32\_t,\ wib6,arr\_size);}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ AddArray(uint32\_t,\ wib7,arr\_size);}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ AddArray(uint32\_t,\ wib8,arr\_size);}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ AddArray(uint32\_t,\ wib9,arr\_size);}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ AddArray(uint32\_t,\ trig\_cand,trig\_cand\_length);}}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ AddArray(uint32\_t,\ trig\_header,trig\_head\_length);}}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ AddArray(uint32\_t,\ hw\_sig\_interface,hw\_sig\_length);}}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ AddScalar(uint32\_t,trig\_scalar);}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00036\ \ \ \ \ }
+\DoxyCodeLine{00037\ \ \ \ \ Generate\_Arrays(soa\_trigvec,}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Addvector(uint32\_t,\ wib0);}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Addvector(uint32\_t,\ wib1);}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Addvector(uint32\_t,\ wib2);}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Addvector(uint32\_t,wib3);}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Addvector(uint32\_t,\ wib4);}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Addvector(uint32\_t,\ wib5);}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Addvector(uint32\_t,\ wib6);}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Addvector(uint32\_t,\ wib7);}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Addvector(uint32\_t,\ wib8);}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Addvector(uint32\_t,\ wib9);}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Addvector(uint32\_t,\ trig\_cand);}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Addvector(uint32\_t,\ trig\_header);}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Addvector(uint32\_t,\ hw\_sig\_interface);}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ AddScalar(uint32\_t,trig\_scalar);}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \};\ \ \ }
+\DoxyCodeLine{00058\ \}\ \textcolor{comment}{//\ namespace\ soa}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

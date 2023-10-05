@@ -1,0 +1,37 @@
+\hypertarget{val_8h_source}{}\doxysection{val.\+h}
+\label{val_8h_source}\index{include/val.h@{include/val.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#include\ "{}memory.h"{}}}
+\DoxyCodeLine{00002\ \textcolor{keyword}{namespace\ }soa\{}
+\DoxyCodeLine{00003\ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T,\ \textcolor{keywordtype}{int}\ bytealignment=128,\ \textcolor{keywordtype}{int}\ offset\ =\ bytealignment-\/\textcolor{keyword}{sizeof}(T)\%bytealignment>}
+\DoxyCodeLine{00004\ \ \ \ \ \textcolor{keyword}{class}\ \mbox{\hyperlink{classsoa_1_1myval}{myval}}\{}
+\DoxyCodeLine{00005\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00006\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Default\ constructor\ initialized\ val\ with\ NULL}}
+\DoxyCodeLine{00007\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classsoa_1_1myval}{myval}}():\_val(NULL)\{\}}
+\DoxyCodeLine{00008\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classsoa_1_1myval}{myval}}(\textcolor{keyword}{const}\ T\&\ init\_val):\_val(init\_val)\{}
+\DoxyCodeLine{00009\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00010\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classsoa_1_1myval}{\string~myval}}()\{\}}
+\DoxyCodeLine{00011\ \ \ \ \ \ \ \ \ SOA\_HOST\_DEVICE\_INLINE\ \ \mbox{\hyperlink{classsoa_1_1myval}{myval<T>}}\&\ operator=(\textcolor{keyword}{const}\ T\&\ v)\{}
+\DoxyCodeLine{00012\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_val\ =\ v;}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \textcolor{comment}{//\ SOA\_HOST\_DEVICE\_INLINE\ myval<T>\ operator*()\ const\{}}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ return\ *\_val;}}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \textcolor{comment}{//\ \}}}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ SOA\_HOST\_DEVICE\_INLINE\ T\ val()\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_val;}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Define\ a\ custom\ stream\ operator\ Needed\ for\ cout,\ printf\ etc..}}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \textcolor{keyword}{friend}\ std::ostream\&\ operator<<(std::ostream\&os,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classsoa_1_1myval}{myval<T,bytealignment,offset>}}\&\ obj)\{}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \ \ \ \ os<<obj.\_val;}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ os;}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ pad[offset];}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ T\ \_val;}
+\DoxyCodeLine{00030\ \ \ \ \ \};}
+\DoxyCodeLine{00031\ \}}
+
+\end{DoxyCode}
