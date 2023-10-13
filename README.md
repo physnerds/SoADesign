@@ -8,6 +8,7 @@ Detailed version of this test suite that includes HDF5 related tests and GPU off
 
 1. Download the Code from github.
 ```
+$ git clone https://physnerds.github.io/SoADesign/md_README.html
 $ cd SoADesign
 $ mkdir build
 $ cmake ..
