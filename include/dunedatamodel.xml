@@ -1,0 +1,6 @@
+<lcgdict>
+ <class name="soa::DUNETriggerData" />
+ <class name="soa::DUNETriggerData::soa_trigger" /> 
+<class name="soa::DUNETriggerData::soa_trigvec" >
+</class>
+</lcgdict>
