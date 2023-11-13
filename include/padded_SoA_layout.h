@@ -19,7 +19,7 @@ struct structName{ \
 
 class SoA_Layout{
     public:
-        
+        static const int msize = 500;
         Generate_Arrays(myArray,
                 AddArray(uint32_t, x, msize)
                 AddArray(uint32_t, y, msize)
@@ -30,7 +30,7 @@ class SoA_Layout{
 
     
     private:
-         int msize = 500;
+
     
 
 
