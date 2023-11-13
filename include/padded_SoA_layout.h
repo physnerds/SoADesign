@@ -21,9 +21,9 @@ class SoA_Layout{
     public:
         
         Generate_Arrays(myArray,
-                AddArray(float, x, msize)
-                AddArray(float, y, msize)
-                AddArray(float, z, msize)
+                AddArray(uint32_t, x, msize)
+                AddArray(uint32_t, y, msize)
+                AddArray(uint32_t, z, msize)
                 AddScalar(int, id)
                 AddScalar(int, r)
                 )

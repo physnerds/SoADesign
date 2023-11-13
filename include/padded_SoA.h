@@ -7,9 +7,9 @@
 
 struct SoA{
     //these are arrays
-    float *x;
-    float *y;
-    float *z;
+    uint32_t *x;
+    uint32_t *y;
+    uint32_t *z;
 
     //the below are the scalars
     int* id;
@@ -20,15 +20,15 @@ struct SoA{
 
     //Constructor for the SoA....
     SoA(size_t elements): num_elements(elements){
-        size_t arr_bytes = elements* sizeof(float);
+        size_t arr_bytes = elements* sizeof(uint32_t);
         pad_size = (128-(arr_bytes%128))%128; //Putting a padding of 128 elements....
         size_t total_size = arr_bytes + pad_size;
         
 
         //allocate aligned memory for arrays...
-        x = static_cast<float*> (std::aligned_alloc(128,total_size));
-        y = static_cast<float*> (std::aligned_alloc(128,total_size));
-        z = static_cast<float*> (std::aligned_alloc(128,total_size));
+        x = static_cast<uint32_t*> (std::aligned_alloc(128,total_size));
+        y = static_cast<uint32_t*> (std::aligned_alloc(128,total_size));
+        z = static_cast<uint32_t*> (std::aligned_alloc(128,total_size));
 
         //alignment for the scalars..
 
@@ -61,7 +61,7 @@ struct SoA{
 
 
 
-}
+};
 
 
 #endif //PADDED_SOA_H
