@@ -3,4 +3,12 @@
  <class name="soa::DUNETriggerData::soa_trigger" /> 
 <class name="soa::DUNETriggerData::soa_trigvec" >
 </class>
+<class name="soa::ASoA::msoa">
+    <field name="a" type="std::vector<uint32_t>" />
+    <field name="b" type="std::vector<uint32_t>" />
+</class>
+<class name="soa::ASoA::asoa" >
+    <field name="aa",type="std::vector<uint32_t>" />
+    <field name="subsoa" type="soa::ASoA::msoa" />
+</class>
 </lcgdict>

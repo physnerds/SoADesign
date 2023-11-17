@@ -26,6 +26,9 @@ type name[size];
 #define Addvector(type,name) \
 std::vector<type>name;
 
+#define AddSoA(type, name) \
+type name;
+
 #define Generate_Arrays(structName, ...) \
 struct structName{ \
  __VA_ARGS__ \

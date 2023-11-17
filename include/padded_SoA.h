@@ -59,7 +59,14 @@ struct SoA{
 
     SoA& operator=(const SoA&) = delete;
 
-
+    // Accessors for the elements
+    uint32_t* getX() { return x; }
+    uint32_t* getY() { return y; }
+    uint32_t* getZ() { return z; }
+    int* getId() { return id; }
+    int* getR() { return r; }
+    size_t getNumElements() const { return num_elements; }
+    size_t getPadSize() const { return pad_size; }
 
 };
 
