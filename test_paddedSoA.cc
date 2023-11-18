@@ -12,7 +12,6 @@
 #include <TRandom3.h>
 
 #include "include/ASoA.h"
-
 R__LOAD_LIBRARY(ROOTNTuple)
 using ENTupleInfo = ROOT::Experimental::ENTupleInfo;
 using REntry = ROOT::Experimental::REntry;
@@ -35,7 +34,6 @@ using namespace soa;
 
 void ReadRNTuple(){
    auto model = RNTupleModel::Create();
-  // auto ntuple = RNTupleReader::Open("NTuple",filename);
   
    auto soa = model->MakeField<ASoA::asoa>(mname);
   
@@ -65,7 +63,7 @@ void CreateRNTuple(){
         entries.emplace_back(ntuple->CreateEntry());
 
     for(int i = 0;i<NWriterThreads;i++){
-        std::cout<<"Printing Thread Loop "<<i<<std::endl;
+    //    std::cout<<"Printing Thread Loop "<<i<<std::endl;
         threads.emplace_back([i,&entries,&ntuple](){
             static std::mutex glock;
 
@@ -76,7 +74,7 @@ void CreateRNTuple(){
             auto _val = entries[i]->Get<ASoA::asoa>(mname);
 
             for(int j=0;j<arr_size;j++){
-                std::cout<<"Printing array loop "<<j<<std::endl;
+            //    std::cout<<"Printing array loop "<<j<<std::endl;
                 double arr[3];
                 prng->RndmArray(3,arr);
 
