@@ -23,7 +23,13 @@ class ASoA{
                     AddSoA(msoa, subsoa);
 
                 );
-
+/*
+    Generate_Aligned_Arrays(aligned_soa,
+    (float,x,100),
+    (float,y,100),
+    (int, id)
+    );
+    */
     private:
     
 

@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.20)
 project(soa CXX C)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 #find_package(MPI REQUIRED)
 find_package(ROOT REQUIRED COMPONENTS RIO Net OPTIONAL_COMPONENTS)
 #find_package(nlohmann_json)
@@ -25,7 +26,7 @@ include_directories (SYSTEM
          #${MPI_CXX_INCLUDE_DIRS}
          ${HDF5_INCLUDE_DIRS}
          ${PROJECT_SOURCE_DIR}/include
-         #${Boost_INCLUDR_DIRS}
+         ${Boost_INCLUDR_DIRS}
          ${INCLUDE_DIR}
          #${ONEAPI_DIR}
          ${ROOT_INCLUDE_DIRS}
@@ -36,7 +37,7 @@ include_directories (SYSTEM
 set (libraries ${libraries}
              ${ROOT_LIBRARIES}
          #${MPI_CXX_LIBRARIES}
-         #${Boost_LIBRARIES}
+         ${Boost_LIBRARIES}
          ${HDF5_LIBRARIES}
         #${TBB_LIB}
          ROOT::Core
