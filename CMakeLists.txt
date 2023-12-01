@@ -48,7 +48,7 @@ set (libraries ${libraries}
          )
 
 
-REFLEX_GENERATE_DICTIONARY(G__dunedatamodel include/DUNETriggerData.h include/ASoA.h SELECTION ${PROJECT_SOURCE_DIR}/include/dunedatamodel.xml)
+REFLEX_GENERATE_DICTIONARY(G__dunedatamodel include/DUNETriggerData.h include/ASoA.h include/padded_SoA.h SELECTION ${PROJECT_SOURCE_DIR}/include/dunedatamodel.xml)
 add_library(dunedatamodel_dict SHARED G__dunedatamodel.cxx)
 target_link_libraries(dunedatamodel_dict PUBLIC ${libraries})
 
@@ -79,3 +79,17 @@ add_executable(test_paddedSoA
 #               include/DUNETriggerData.cxx 
               test_paddedSoA.cc)
 target_link_libraries(test_paddedSoA PRIVATE ${libraries} dunedatamodel_dict)
+
+add_executable(test_ASoA
+#               include/DUNETriggerData.cxx 
+              test_ASoA.cc)
+target_link_libraries(test_ASoA PRIVATE ${libraries} dunedatamodel_dict)
+
+#add_executable(gen_atlas
+#                gen_atlas.cxx)
+#target_link_libraries(gen_atlas PRIVATE ${libraries})
+
+add_executable(convert_tree_to_rntuple 
+                convert_tree_to_rntuple.cc)
+
+target_link_libraries(convert_tree_to_rntuple PRIVATE ${libraries})

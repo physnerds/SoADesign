@@ -8,4 +8,5 @@
 <class name="soa::ASoA::asoa" >
 </class>
 <class name="soa::ASoA::aligned_soa" />
+<class name="soa::SoALayout" />
 </lcgdict>
