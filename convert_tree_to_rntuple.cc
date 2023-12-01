@@ -96,8 +96,6 @@ void WriteCAFTree(){
     std::unique_ptr<TFile> f(TFile::Open(file_name));
     assert(f && ! f->IsZombie());
 
-    //unique ptr to an empty RNTuple model without a default entry
-    auto model = RNTupleModel::CreateBare();
     auto tree = f->Get<TTree>(tree_name);
     TFile newfile(ofile_name, "recreate");
     auto ntree = tree->CloneTree();
