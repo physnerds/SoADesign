@@ -70,8 +70,17 @@ $(function() {
 <div class="textblock"><p>Doxygen pages are found here: "https://physnerds.github.io/SoADesign/"</p>
 <h1><a class="anchor" id="autotoc_md1"></a>
 Introduction</h1>
-<p>This is a simple test suite designed to work in a local machine that supports ROOT with RNTuple. This was tested in M2 chip Macbook. Detailed version of this test suite that includes HDF5 related tests and GPU offloading is here [<a href="https://github.com/physnerds/rntuple_test.git">https://github.com/physnerds/rntuple_test.git</a>] But is only tested in Perlmutter. </p>
+<p>This is a simple test suite designed to work in a local machine that supports ROOT with RNTuple. This was tested in M2 chip Macbook. Detailed version of this test suite that includes HDF5 related tests and GPU offloading is here [<a href="https://github.com/physnerds/rntuple_test.git">https://github.com/physnerds/rntuple_test.git</a>] But is only tested in Perlmutter.</p>
 <h1><a class="anchor" id="autotoc_md2"></a>
+Dependencies</h1>
+<ol type="1">
+<li>ROOT (preferably &gt;=6.30 but at least greater than 6.28)</li>
+<li>HDF5 (Version Greater than 1.14). Currently HDF5 is not needed but later modules will be added.</li>
+<li>BOOST: Required for Pre-processing macro generation.</li>
+<li>CMake (Version Greater than 3.20)</li>
+</ol>
+<p>Almost all the dependencies are available via package manager like Conda or Brew. For ROOT with version 6.30 or greater, source installation is required.</p>
+<h1><a class="anchor" id="autotoc_md3"></a>
 Building Code</h1>
 <ol type="1">
 <li>Download the Code from github. <div class="fragment"><div class="line">$ git clone https://github.com/physnerds/SoADesign.git</div>
