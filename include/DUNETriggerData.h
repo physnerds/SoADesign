@@ -11,7 +11,7 @@ namespace soa
     ~DUNETriggerData(){};
     void GenerateData(int seed);
 
-    static const int arr_size = 50000;
+    static const int arr_size = 10000000;
     static const int trig_cand_length = 128;
     static const int trig_head_length = 440;
     static const int hw_sig_length = 96;
@@ -52,6 +52,9 @@ namespace soa
                 Addvector(uint32_t, hw_sig_interface);
                 AddScalar(uint32_t,trig_scalar);
                 );
+      Generate_Arrays(soa_simple,
+         Addvector(uint32_t, wib0);
+         );
     private:
 
  };   

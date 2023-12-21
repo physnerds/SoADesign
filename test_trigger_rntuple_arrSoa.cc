@@ -22,7 +22,7 @@ using RNTupleWriter = ROOT::Experimental::RNTupleWriter;
 #include<vector>
 #include<thread>
 
-#define arr_size 50000
+#define arr_size 100000000
 #define trig_cand_length 128
 #define trig_head_length 440
 #define hw_sig_length 96
@@ -31,7 +31,7 @@ using namespace soa;
 
 constexpr char const* filename = "myfile_rntuple_arrSoA.root";
 constexpr char const* filename_tree = "myfile_tree_arrSoA.root";
-constexpr int NWriterThreads = 4;
+constexpr int NWriterThreads = 10;
 const int EvtsPerThreads = 250000;
 
 void CompareStuff(){
@@ -67,7 +67,7 @@ void ReadRNTuple(){
    auto model = RNTupleModel::Create();
   // auto ntuple = RNTupleReader::Open("NTuple",filename);
   
-   auto soa = model->MakeField<DUNETriggerData::soa_trigger>("Trig0");
+   auto soa = model->MakeField<DUNETriggerData::soa_simple>("Trig0");
   
  auto ntuple = RNTupleReader::Open(std::move(model), "NTuple", filename);
  ntuple->PrintInfo(ENTupleInfo::kStorageDetails);
@@ -76,6 +76,43 @@ void ReadRNTuple(){
   //ntuple->Show(0);
   
 }   
+
+void CreateRNTupleSimple(){
+    auto model = RNTupleModel::Create();
+    auto ftrig_vec = model->MakeField<DUNETriggerData::soa_simple>("Trig0");
+
+    auto ntuple = RNTupleWriter::Recreate(std::move(model),"NTuple",filename);
+
+    std::vector<std::unique_ptr<REntry>>entries;
+    std::vector<std::thread>threads;
+
+    for(int i=0;i<NWriterThreads;i++)
+        entries.emplace_back(ntuple->CreateEntry());
+   
+    for(int i=0;i<NWriterThreads;i++){
+        threads.emplace_back([i,&entries,&ntuple](){
+        static std::mutex gLock;
+
+        auto prng = std::make_unique<TRandom3>();
+        prng->SetSeed();
+        //DUNETrigger::soa_trigvec d_trigvec;
+        auto _val = entries[i]->Get<DUNETriggerData::soa_simple>("Trig0");
+        for(int j=0;j<arr_size;j++){
+            double arr[1],xx,yy;
+            prng->RndmArray(1,arr);
+            uint32_t v0 = int(xx*10); 
+            _val->wib0.emplace_back(v0); 
+        }
+        std::lock_guard<std::mutex>guard(gLock);
+        ntuple->Fill(*entries[i]);
+
+    }); //end of lambda function
+
+    } //end of for loop
+    for(auto &thread:threads)
+        thread.join();
+    
+}
 
 void CreateRNTuple(){
     auto model = RNTupleModel::Create();
@@ -126,7 +163,7 @@ void CreateRNTuple(){
 }
 int main(int argc, char* argv[]){
   
-  if(atoi(argv[1])==1)  CreateRNTuple();
+  if(atoi(argv[1])==1)  CreateRNTupleSimple();
   if(atoi(argv[1])==2)  ReadRNTuple();
   if(atoi(argv[1])==3)  CompareStuff();
     return 1;
