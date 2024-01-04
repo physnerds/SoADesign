@@ -4,10 +4,4 @@
 <class name="soa::DUNETriggerData::soa_trigvec" />
 <class name="soa::DUNETriggerData::soa_simple" >
 </class>
-<class name="soa::ASoA::msoa">
-</class>
-<class name="soa::ASoA::asoa" >
-</class>
-<class name="soa::ASoA::aligned_soa" />
-<class name="soa::SoALayout" />
 </lcgdict>

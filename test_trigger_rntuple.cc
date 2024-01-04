@@ -22,7 +22,7 @@ using RNTupleWriter = ROOT::Experimental::RNTupleWriter;
 #include<vector>
 #include<thread>
 
-#define arr_size 3866696
+#define arr_size 10000000
 #define trig_cand_length 128
 #define trig_head_length 440
 #define hw_sig_length 96
@@ -31,14 +31,14 @@ using namespace soa;
 
 constexpr char const* filename = "myfile_rntuple.root";
 constexpr char const* filename_tree = "myfile_tree.root";
-constexpr int NWriterThreads = 4;
+constexpr int NWriterThreads = 10;
 const int EvtsPerThreads = 250000;
 
 void CompareStuff(){
-    DUNETriggerData::soa_trigvec* Soa;
+    DUNETriggerData::soa_simple* Soa;
 
     auto model = RNTupleModel::Create();    
-    auto soa = model->MakeField<DUNETriggerData::soa_trigvec>("Trig0");
+    auto soa = model->MakeField<DUNETriggerData::soa_simple>("Trig0");
     auto ntuple = RNTupleReader::Open(std::move(model),"NTuple",filename);
 
   auto _rfile = new TFile(filename_tree,"READONLY");
@@ -46,7 +46,7 @@ void CompareStuff(){
   
   auto _cf = _rfile->GetCompressionFactor();
   auto _clevel = _rfile->GetCompressionLevel();
-  Soa = new DUNETriggerData::soa_trigvec;
+  Soa = new DUNETriggerData::soa_simple;
   fTree->SetBranchAddress("Soa",&Soa);
   const int entries_tree = fTree->GetEntries();
   const int entries_rntuple = ntuple->GetNEntries();
@@ -67,7 +67,7 @@ void ReadRNTuple(){
    auto model = RNTupleModel::Create();
   // auto ntuple = RNTupleReader::Open("NTuple",filename);
   
-   auto soa = model->MakeField<DUNETriggerData::soa_trigvec>("Trig0");
+   auto soa = model->MakeField<DUNETriggerData::soa_simple>("Trig0");
   
  auto ntuple = RNTupleReader::Open(std::move(model), "NTuple", filename);
  ntuple->PrintInfo(ENTupleInfo::kStorageDetails);
@@ -77,9 +77,26 @@ void ReadRNTuple(){
   
 }   
 
-void CreateRNTuple(){
+void WriteEntries(int ID, std::vector<std::unique_ptr<REntry>>& entries, std::unique_ptr<RNTupleWriter> &Ntuple ){
+  static std::mutex gLock;
+  auto prng = std::make_unique<TRandom3>();
+  prng->SetSeed();
+  //DUNETrigger::soa_simple d_simple;
+  auto _val = entries[ID]->Get<DUNETriggerData::soa_simple>("Trig0");
+  for(int j=0;j<arr_size;j++){
+      Double_t arr[10];
+      prng->RndmArray(10,arr);
+      uint32_t v0 = uint32_t(arr[0]*10);
+
+      _val->wib0.emplace_back(v0);
+      
+  }
+  std::lock_guard<std::mutex>guard(gLock);
+  Ntuple->Fill(*entries[ID]);  
+}
+void CreateRNTupleSimple(){
     auto model = RNTupleModel::Create();
-    auto ftrig_vec = model->MakeField<DUNETriggerData::soa_trigvec>("Trig0");
+    auto ftrig_vec = model->MakeField<DUNETriggerData::soa_simple>("Trig0");
 
     auto ntuple = RNTupleWriter::Recreate(std::move(model),"NTuple",filename);
 
@@ -90,43 +107,8 @@ void CreateRNTuple(){
         entries.emplace_back(ntuple->CreateEntry());
    
     for(int i=0;i<NWriterThreads;i++){
-        threads.emplace_back([i,&entries,&ntuple](){
-        static std::mutex gLock;
-
-        auto prng = std::make_unique<TRandom3>();
-        prng->SetSeed();
-        //DUNETrigger::soa_trigvec d_trigvec;
-        auto _val = entries[i]->Get<DUNETriggerData::soa_trigvec>("Trig0");
-        for(int j=0;j<arr_size;j++){
-            Double_t arr[10];
-            prng->RndmArray(10,arr);
-            uint32_t v0 = uint32_t(arr[0]*10);
-            uint32_t v1 = uint32_t(arr[1]*10);
-            uint32_t v2 = uint32_t(arr[2]*10);
-            uint32_t v3 = uint32_t(arr[3]*10);
-            uint32_t v4 = uint32_t(arr[4]*10);
-            uint32_t v5 = uint32_t(arr[5]*10);
-            uint32_t v6 = uint32_t(arr[6]*10);
-            uint32_t v7 = uint32_t(arr[7]*10);
-            uint32_t v8 = uint32_t(arr[8]*10);
-            uint32_t v9 = uint32_t(arr[9]*10);
-            _val->wib0.emplace_back(v0);
-            _val->wib1.emplace_back(v1);   
-            
-            _val->wib2.emplace_back(v2);
-            _val->wib3.emplace_back(v3);
-            _val->wib4.emplace_back(v4);
-            _val->wib5.emplace_back(v5);
-            _val->wib6.emplace_back(v6);
-            _val->wib7.emplace_back(v7);
-            _val->wib8.emplace_back(v8);
-            _val->wib9.emplace_back(v9); 
-            
-        }
-        _val->trig_scalar=4;
-        std::lock_guard<std::mutex>guard(gLock);
-        ntuple->Fill(*entries[i]);
-
+      threads.emplace_back([i,&entries,&ntuple](){
+      WriteEntries(i, entries, ntuple);
     }); //end of lambda function
 
     } //end of for loop
@@ -136,7 +118,7 @@ void CreateRNTuple(){
 }
 int main(int argc, char* argv[]){
   
-  if(atoi(argv[1])==1)  CreateRNTuple();
+  if(atoi(argv[1])==1)  CreateRNTupleSimple();
   if(atoi(argv[1])==2)  ReadRNTuple();
   if(atoi(argv[1])==3)  CompareStuff();
     return 1;

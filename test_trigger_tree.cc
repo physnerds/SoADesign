@@ -12,7 +12,7 @@
 #include <cstring>
 #include <thread>
 
-#include "DuneTriggerData.h"
+#include "DUNETriggerData.h"
 
 
 using namespace soa;

@@ -52,6 +52,7 @@ namespace soa
                 Addvector(uint32_t, hw_sig_interface);
                 AddScalar(uint32_t,trig_scalar);
                 );
+
       Generate_Arrays(soa_simple,
          Addvector(uint32_t, wib0);
          );
