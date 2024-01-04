@@ -68,11 +68,32 @@ void ReadRNTuple(){
   // auto ntuple = RNTupleReader::Open("NTuple",filename);
   
    auto soa = model->MakeField<DUNETriggerData::soa_simple>("Trig0");
+   
   
  auto ntuple = RNTupleReader::Open(std::move(model), "NTuple", filename);
+ const int entries_rntuple = ntuple->GetNEntries();
+ printf("Entries RNTuple %d \n",entries_rntuple);
+
+ std::vector<uint32_t>sum_entries;
+ for(int i = 0;i<entries_rntuple; i++){
+  ntuple->LoadEntry(i);
+  auto vec_entries = soa->wib0;
+  auto vec_size = soa->wib0.size();
+  uint32_t sum_tot = 0;
+  for(auto val:vec_entries){
+    sum_tot+= val;
+  }
+  sum_entries.push_back(sum_tot);
+
+ }
+
+ for(auto sum_entry: sum_entries)
+ printf("Sum of Vector %d \n",sum_entry);
+
  ntuple->PrintInfo(ENTupleInfo::kStorageDetails);
  ntuple->PrintInfo();
-  
+ 
+
  // ntuple->Show(0);
   
 }   
