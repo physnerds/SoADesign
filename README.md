@@ -35,7 +35,7 @@ Download the Code (lcrc branche) from github.
 ```
 $ git clone -b feature/lcrc https://github.com/physnerds/SoADesign.git 
 $ cd SoADesign
-$ mkdir build
+$ mkdir build; cd build
 $ cmake ..
 $ make -j16
 ```
