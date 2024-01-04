@@ -11,8 +11,18 @@ This is a simple test suite designed to work in a local machine that supports RO
 
 All these packages are available either in Conda or homebrew which is the easy and recommended way of getting these packages. If you are building this in LCRC, these anaconda is already available in LCRC machine. 
 
-## Loading Conda Environment
+## Creating Conda Environment (One time Only)
 In the LCRC (heplogin) machine:
+
+```
+$ module load anaconda3/2021.05
+$ conda create -n rootenv python=3.8 root -c conda-forge
+$ conda install cmake -c conda-forge
+```
+We have created a conda environment called rootenv, installed `ROOT` and `cmake`. 
+
+## Loading the Conda Environment
+Now load the conda environment. This is something you have to do each time you want to run this package.
 
 ```
 $ module load anaconda3/2021.05
@@ -30,7 +40,7 @@ $ cmake ..
 $ make -j16
 ```
 
-Test codes:
+## Test codes:
 Test Codes produce the data models similar to that of ProtoDUNE Trigger Data in the SoA format and write them in TTree or RNTuple
 *********************************
 ```
