@@ -18,6 +18,7 @@ using REntry = ROOT::Experimental::REntry;
 using RNTupleModel = ROOT::Experimental::RNTupleModel;
 using RNTupleReader = ROOT::Experimental::RNTupleReader;
 using RNTupleWriter = ROOT::Experimental::RNTupleWriter;
+using RPageSource = ROOT::Experimental::Detail::RPageSource;
 
 #include<vector>
 #include<thread>
@@ -94,14 +95,19 @@ void ReadRNTuple(){
  }
  ntuple->PrintInfo(ENTupleInfo::kStorageDetails);
  ntuple->PrintInfo();
- 
-
- // ntuple->Show(0);
   
 }   
 
+void ReadPageSource(){
+
+  //auto soa = model->MakeField<DUNETriggerData::soa_simple>("Trig0");
+  auto rpage = RPageSource::Create("NTuple",filename);
+// auto ntuple = RNTupleReader::Open(std::move(model), "NTuple", filename);
+
+
+}
 void WriteEntries(int ID, std::vector<std::unique_ptr<REntry>>& entries, std::unique_ptr<RNTupleWriter> &Ntuple ){
-  static std::mutex gLock;
+ // static std::mutex gLock;
   auto prng = std::make_unique<TRandom3>();
   prng->SetSeed();
   //DUNETrigger::soa_simple d_simple;
@@ -114,9 +120,10 @@ void WriteEntries(int ID, std::vector<std::unique_ptr<REntry>>& entries, std::un
       _val->wib0.emplace_back(v0);
       
   }
-  std::lock_guard<std::mutex>guard(gLock);
+ // std::lock_guard<std::mutex>guard(gLock);
   Ntuple->Fill(*entries[ID]);  
 }
+
 void CreateRNTupleSimple(){
     auto model = RNTupleModel::Create();
     auto ftrig_vec = model->MakeField<DUNETriggerData::soa_simple>("Trig0");
@@ -124,20 +131,26 @@ void CreateRNTupleSimple(){
     auto ntuple = RNTupleWriter::Recreate(std::move(model),"NTuple",filename);
 
     std::vector<std::unique_ptr<REntry>>entries;
-    std::vector<std::thread>threads;
+   // std::vector<std::thread>threads;
 
     for(int i=0;i<NWriterThreads;i++)
         entries.emplace_back(ntuple->CreateEntry());
-   
-    for(int i=0;i<NWriterThreads;i++){
-      threads.emplace_back([i,&entries,&ntuple](){
-      WriteEntries(i, entries, ntuple);
-    }); //end of lambda function
+      
+  for(int i = 0;i<NWriterThreads;i++){
+  auto prng = std::make_unique<TRandom3>();
+  prng->SetSeed();
+  //DUNETrigger::soa_simple d_simple;
+  auto _val = entries[i]->Get<DUNETriggerData::soa_simple>("Trig0");
+  for(int j=0;j<arr_size;j++){
+      Double_t arr[10];
+      prng->RndmArray(10,arr);
+      uint32_t v0 = uint32_t(arr[0]*10);
 
-    } //end of for loop
-    for(auto &thread:threads)
-        thread.join();
-    
+      _val->wib0.emplace_back(v0);
+  }
+  ntuple->Fill(*entries[i]);
+
+}
 }
 int main(int argc, char* argv[]){
   
