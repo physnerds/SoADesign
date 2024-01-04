@@ -75,10 +75,12 @@ void ReadRNTuple(){
  printf("Entries RNTuple %d \n",entries_rntuple);
 
  std::vector<uint32_t>sum_entries;
+ std::vector<size_t>size_entries;
  for(int i = 0;i<entries_rntuple; i++){
   ntuple->LoadEntry(i);
   auto vec_entries = soa->wib0;
   auto vec_size = soa->wib0.size();
+  size_entries.push_back(vec_size);
   uint32_t sum_tot = 0;
   for(auto val:vec_entries){
     sum_tot+= val;
@@ -86,10 +88,10 @@ void ReadRNTuple(){
   sum_entries.push_back(sum_tot);
 
  }
-
- for(auto sum_entry: sum_entries)
- printf("Sum of Vector %d \n",sum_entry);
-
+ 
+ for(size_t i=0;i<entries_rntuple;i++){
+ printf("Size and Sum  of Vector  %d %d \n",size_entries[i], sum_entries[i]);
+ }
  ntuple->PrintInfo(ENTupleInfo::kStorageDetails);
  ntuple->PrintInfo();
  
