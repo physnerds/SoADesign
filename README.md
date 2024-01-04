@@ -1,28 +1,29 @@
 # SoADesign
 
 ## Introduction
-This is a simple test suite designed to work in a local machine that supports ROOT with RNTuple. This was tested in M2 chip Macbook.
-Detailed version of this test suite that includes HDF5 related tests and GPU offloading is here [https://github.com/physnerds/rntuple_test.git] But is only tested in Perlmutter.
+This is a simple test suite designed to work in a local machine that supports ROOT with RNTuple. This was tested in ANL HEPLOGIN Machine.
+
 
 ## Dependencies
 
-1. ROOT (Version 6.28 or larger)
-2. HDF5 (Version 1.12 or larger)
+1. ROOT (Version 6.30 or larger)
 3. cmake (Version 3.20 or larger)
 
-All these packages are available either in Conda or homebrew which is the easy and recommended way of getting these packages. 
+All these packages are available either in Conda or homebrew which is the easy and recommended way of getting these packages. If you are building this in LCRC, these anaconda is already available in LCRC machine. 
 
-Here is the link to conda installation in MAC [https://docs.conda.io/projects/conda/en/latest/user-guide/install/macos.html].
-Here is the link to brew installation in MAC [https://docs.brew.sh/Installation].
+## Loading Conda Environment
+In the LCRC (heplogin) machine:
 
-For Homebrew installation check for required installations in the webpage. 
-
-Once you have one of those package managers, you can follow the instructions online (or google) to have those packages to build them locally. 
+```
+$ module load anaconda3/2021.05
+$ conda activate rootenv
+```
 
 ## Building Code
 
-1. Download the Code from github.
+Download the Code (lcrc branche) from github.
 ```
+$ git clone -b feature/lcrc https://github.com/physnerds/SoADesign.git 
 $ cd SoADesign
 $ mkdir build
 $ cmake ..
@@ -42,12 +43,3 @@ Writes (1), Reads (2) and compares with TTree ```created with test_trigger_tree 
 ```
 Writes SoA of vectors (1)in tree and Reads them back (2).
 ***********************************
-```
-./test_trigger_rntuple_arrSoa [1,2,3]
-```
-Writes SoA of arrays (1), Reads (2) and Compares with those written with TTree (3)
-***********************************
-```
-./test_trigger_tree_arrSoa [1,2]
-```
-Writes SoA of arrays (1)in tree and Reads them back (2).
